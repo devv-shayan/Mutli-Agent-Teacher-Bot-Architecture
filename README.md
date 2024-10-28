@@ -4,6 +4,7 @@
 flowchart TD
     classDef userNode fill:#e6f3f,stroke:#4a90e2,stroke-width:2px
     classDef interfaceNode fill:#f5f55,stroke:#666,stroke-width:2px
+    classDef chatbotNode fill:#fff0f,stroke:#A020F0,stroke-width:2px
     classDef aiNode fill:#fff0f,stroke:#ff69b4,stroke-width:2px
     classDef dbNode fill:#f0fff,stroke:#3cb371,stroke-width:2px
     classDef humanLoopNode fill:#ffe66,stroke:#ff4d4d,stroke-width:2px
@@ -17,10 +18,14 @@ flowchart TD
         Interface[Next.js Web Interface]:::interfaceNode
     end
 
+    %% CHATBOT Layer
+    subgraph Chatbot_Layer["Chatbot Layer"]
+        direction TB
+        Chat[Bidirectional Q&A System]:::chatbotNode
+    end
     %% AI Processing Layer
     subgraph AI_Layer["AI Processing Layer"]
         direction TB
-        Chat[Bidirectional Q&A System]:::aiNode
         ContentEngine[Content Generation Engine]:::aiNode
 
         subgraph AI_Processing["AI Processing Components"]
@@ -69,6 +74,7 @@ flowchart TD
 
     %% Styles
     style Frontend fill:#f8f9f,stroke:#dee2e6,stroke-width:2px
+    style Chatbot_Layer fill:#f8f9f,stroke:#A020F0,stroke-width:2px
     style AI_Layer fill:#fff0f,stroke:#ffb6c1,stroke-width:2px
     style Storage fill:#f0ff0,stroke:#b6ffb6,stroke-width:2px
     style Human_Loop fill:#ffe6e,stroke:#ffcccc,stroke-width:2px
@@ -76,7 +82,8 @@ flowchart TD
 
     %% Link Styles
     linkStyle 0,1 stroke:#4a90e2,stroke-width:2px %% Teacher-Interface connections
-    linkStyle 2,3,4,5 stroke:#ff69b4,stroke-width:2px %% AI layer connections
+    linkStyle 2 stroke:#A020F0,stroke-width:2px %% Chatbot to ContentEngine connection
+    linkStyle 3,4,5 stroke:#ff69b4,stroke-width:2px %% AI Processing Layer connections
     linkStyle 6,7,8,9,10 stroke:#ff4d4d,stroke-width:2px %% Human loop connections
     linkStyle 11,12,13 stroke:#3cb371,stroke-width:2px %% Database connections
     linkStyle 14,15,16 stroke:#3cb371,stroke-dasharray:5,stroke-width:2px %% Dotted database connections
@@ -105,3 +112,57 @@ sequenceDiagram
     R-->>CE: Content approved
     CE->>Storage: Stores approved content
 ```
+Here's the content formatted in Markdown:
+
+# Human-in-the-Loop Flow Patterns
+
+## 1. Normal Flow
+
+```
+Content Engine → Review → Feedback → ContentEngine
+      ↑_______________________|
+```
+
+* Content is generated
+* Teacher reviews
+* Feedback provided
+* Content is regenerated with improvements
+
+## 2. Intervention Flow
+
+```
+Review → Intervention → ContentEngine
+   ↑__________________________|
+```
+
+* Serious issues identified
+* Manual intervention triggered
+* Direct corrections made
+* Content regenerated with overrides
+
+## 3. Approval Flow
+
+```
+Review → ContentEngine → DatabaseStorage
+```
+
+* Content meets all standards
+* Approved by teacher
+* Stored for use in system
+
+## Key Benefits
+
+### 1. Quality Assurance
+* Ensures educational standards
+* Maintains content accuracy
+* Verifies appropriateness
+
+### 2. System Improvement
+* Feedback helps improve AI generation
+* Creates learning opportunities
+* Refines content quality
+
+### 3. Safety and Control
+* Prevents inappropriate content
+* Maintains educational standards
+* Provides emergency override capability
