@@ -89,7 +89,7 @@ flowchart TD
     linkStyle 14,15,16 stroke:#3cb371,stroke-dasharray:5,stroke-width:2px %% Dotted database connections
 ```
 
-# Humna In Loop Flow
+# Human In Loop Flow
 ```mermaid
 sequenceDiagram
     participant CE as Content Engine
