@@ -82,4 +82,26 @@ flowchart TD
     linkStyle 14,15,16 stroke:#3cb371,stroke-dasharray:5,stroke-width:2px %% Dotted database connections
 ```
 
-
+# Humna In Loop Flow
+```mermaid
+sequenceDiagram
+    participant CE as Content Engine
+    participant R as Review
+    participant F as Feedback
+    participant I as Intervention
+    
+    Note over CE,I: Normal Flow
+    CE->>R: Sends generated content
+    R->>F: Teacher reviews content
+    F->>CE: Provides feedback/corrections
+    CE->>R: Sends updated content
+    
+    Note over CE,I: Intervention Flow
+    R->>I: Identifies major issues
+    I->>CE: Manual corrections/overrides
+    CE->>R: Regenerates with intervention
+    
+    Note over CE,I: Approval Flow
+    R-->>CE: Content approved
+    CE->>Storage: Stores approved content
+```
